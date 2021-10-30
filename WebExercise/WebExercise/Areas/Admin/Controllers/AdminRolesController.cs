@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,12 @@ namespace WebExercise.Areas.Admin.Controllers
     public class AdminRolesController : Controller
     {
         private readonly DbMarketContext _context;
+        public INotyfService _notyfService { get;}
 
-        public AdminRolesController(DbMarketContext context)
+        public AdminRolesController(DbMarketContext context, INotyfService notyfService)
         {
             _context = context;
+            _notyfService = notyfService;
         }
 
         // GET: Admin/AdminRoles
@@ -60,6 +63,7 @@ namespace WebExercise.Areas.Admin.Controllers
             {
                 _context.Add(role);
                 await _context.SaveChangesAsync();
+                _notyfService.Success("Thêm quyền thành công");
                 return RedirectToAction(nameof(Index));
             }
             return View(role);
@@ -70,12 +74,14 @@ namespace WebExercise.Areas.Admin.Controllers
         {
             if (id == null)
             {
+                _notyfService.Warning("Có lỗi xảy ra");
                 return NotFound();
             }
 
             var role = await _context.Roles.FindAsync(id);
             if (role == null)
             {
+                _notyfService.Warning("Có lỗi xảy ra");
                 return NotFound();
             }
             return View(role);
@@ -99,11 +105,13 @@ namespace WebExercise.Areas.Admin.Controllers
                 {
                     _context.Update(role);
                     await _context.SaveChangesAsync();
+                    _notyfService.Success("Cập nhật thành công");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!RoleExists(role.RoleId))
                     {
+                        _notyfService.Warning("Có lỗi xảy ra");
                         return NotFound();
                     }
                     else
@@ -142,6 +150,7 @@ namespace WebExercise.Areas.Admin.Controllers
             var role = await _context.Roles.FindAsync(id);
             _context.Roles.Remove(role);
             await _context.SaveChangesAsync();
+            _notyfService.Success("Xoá quyền thành công");
             return RedirectToAction(nameof(Index));
         }
 
