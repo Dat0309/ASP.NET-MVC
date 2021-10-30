@@ -1,0 +1,32 @@
+﻿@model WebExercise.Models.Role
+
+@{
+    ViewData["Title"] = "Thông tin quyền truy cập";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông tin quyền truy cập</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+                    <tr>
+                        <td>ID:</td>
+                        <td class="text-dark font-weight-semibold">@Model.RoleId</td>
+                    </tr>
+                    <tr>
+                        <td>Tên Quyền Truy Cập:</td>
+                        <td>
+                            <span class="badge badge-pill badge-cyan">@Model.RoleName</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mô tả:</td>
+                        <td>@Model.Description</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
