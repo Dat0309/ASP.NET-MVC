@@ -17,15 +17,24 @@
 <div class="card">
     <div class="card-body">
         <div class="row m-b-30">
-            <div class="col-lg-8">
-                <div class="d-md-flex">
-                    <div class="m-b-10 m-r-15">
-                        <select class="custom-select" id="txtCatID" name="txtCatID" style="min-width: 200px;" asp-items="ViewBag.DanhMuc">
-                            <option value="all" selected>Chọn tất cả</option>
-                        </select>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-affix m-v-10">
+                            <i class="prefix-icon anticon anticon-search opacity-04"></i>
+                            <input id="keyword" name="keyword" type="text" class="form-control" placeholder="Tìm kiếm sản phẩm">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-affix m-v-10">
+                            <select class="custom-select" id="txtCatID" name="txtCatID" style="min-width: 200px;" asp-items="ViewBag.DanhMuc">
+                                <option value="all" selected>Chọn tất cả</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-4 text-right">
                 <a class="btn btn-primary" asp-controller="AdminProducts" asp-action="Create"><i class="anticon anticon-plus-circle m-r-5"></i><span>Thêm sản phẩm</span></a>
             </div>
@@ -43,7 +52,7 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="records_table">
                     @if (Model != null)
                     {
                         foreach (var item in Model)
@@ -98,31 +107,53 @@
 </div>
 
 @section Scripts{
-    <script>
-        $(document).ready(function(){
-            JQuery("#txtCatID").change(function (){
-                var catID = JQuery(this).children(":selected").attr("value");
-                catID = parseFloat(catID);
-                $('#txtCatID option').removeAttr('selected');
-                $("#txtCatID > [value=" + catID + "]").attr("selected", "true");
-                $ajax({
-                    url: '/Admin/AdminProducts/Filtter',
-                    datatype: "json",
-                    type: "GET",
-                    data:{
-                        CatID: catID
-                    },
-                    async: true,
-                    success: function(results){
-                        if(results.status == "success"){
-                            window.location.href = results.redirectUrl;
-                        }
-                    },
-                    error: function(xhr){
-                        alert('error');
+<script>
+    $(document).ready(function(){
+        JQuery("#txtCatID").change(function (){
+            var catID = JQuery(this).children(":selected").attr("value");
+            catID = parseFloat(catID);
+            $('#txtCatID option').removeAttr('selected');
+            $("#txtCatID > [value=" + catID + "]").attr("selected", "true");
+            $.ajax({
+                url: '/Admin/AdminProducts/Filtter',
+                datatype: "json",
+                type: "GET",
+                data:{
+                    CatID: catID
+                },
+                async: true,
+                success: function(results){
+                    if(results.status == "success"){
+                        console.log(results);
+                        window.location.href = results.redirectUrl;
                     }
-                });
+                },
+                error: function(xhr){
+                    alert('error');
+                }
             });
         });
-    </script>
+
+        $('#keyword').keyup(function (){
+            var strkeyword = $('#keyword').val();
+            $.ajax({
+                url:'/Admin/Search/SearchProduct/',
+                datatype: "json",
+                type: "POST",
+                data:{
+                    keyword: strkeyword
+                },
+                async: true,
+                success: function (results){
+                    console.log(results);
+                    $("#records_table").html("");
+                    $("#records_table").html(results);
+                },
+                error: function (xhr){
+                    alert('error');
+                }
+            });
+        });
+    });
+</script>
 }

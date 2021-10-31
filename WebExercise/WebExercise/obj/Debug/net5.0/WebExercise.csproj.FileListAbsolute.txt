@@ -490,3 +490,4 @@ E:\NAM3\ASP.NET-MVC\WebExercise\WebExercise\obj\Debug\net5.0\Razor\Areas\Admin\V
 E:\NAM3\ASP.NET-MVC\WebExercise\WebExercise\bin\Debug\net5.0\Microsoft.Practices.ServiceLocation.dll
 E:\NAM3\ASP.NET-MVC\WebExercise\WebExercise\bin\Debug\net5.0\IdentityModel.dll
 E:\NAM3\ASP.NET-MVC\WebExercise\WebExercise\bin\Debug\net5.0\XAct.Core.PCL.dll
+E:\NAM3\ASP.NET-MVC\WebExercise\WebExercise\obj\Debug\net5.0\Razor\Views\Search\ListProductsSearchPartial.cshtml.g.cs
