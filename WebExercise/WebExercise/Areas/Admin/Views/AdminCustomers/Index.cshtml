@@ -53,8 +53,6 @@
                         <tr>
                             <th>ID</th>
                             <th>Họ và tên</th>
-                            <th>Số điện thoại</th>
-                            <th>Email</th>
                             <th>Địa chỉ</th>
                             <th>Tỉnh / Thành</th>
                             <th>Thao tác</th>
@@ -70,22 +68,28 @@
                                         @item.CustomerId
                                     </td>
                                     <td>
-                                        @item.FullName
+                                        <p>@item.FullName</p>
+                                        <p>@item.Phone</p>
+                                        <p>@item.Email</p>
+                                        
                                     </td>
-                                    <td>@item.Phone</td>
-                                    <td>@item.Email</td>
                                     <td>@item.Address</td>
                                     <td>@item.Location.Name</td>
                                     <td>
                                         <a class="btn btn-primary btn-tone m-r-5" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Details" asp-route-id="@item.CustomerId">View</a>
-                                        <a class="btn btn-secondary btn-tone m-r-5" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Edit" asp-route-id="@item.CustomerId">>Edit</a>
-                                        <a class="btn btn-success btn-tone m-r-5" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Delete" asp-route-id="@item.CustomerId">>Delete</a>
+                                        <a class="btn btn-secondary btn-tone m-r-5" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a>
+                                        <a class="btn btn-success btn-tone m-r-5" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>
                                     </td>
                                 </tr>
                             }
                         }
                     </tbody>
                 </table>
+                <div aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminCustomers" asp-action="Index"/>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

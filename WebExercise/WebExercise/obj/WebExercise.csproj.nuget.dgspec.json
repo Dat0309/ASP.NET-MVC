@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[6.4.4, )"
             },
+            "IdentityModel": {
+              "target": "Package",
+              "version": "[5.2.0, )"
+            },
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
               "version": "[5.0.11, )"
@@ -69,6 +73,10 @@
             "PagedList.Core.Mvc": {
               "target": "Package",
               "version": "[3.0.0, )"
+            },
+            "XAct.Core.PCL": {
+              "target": "Package",
+              "version": "[0.0.5014, )"
             }
           },
           "imports": [
