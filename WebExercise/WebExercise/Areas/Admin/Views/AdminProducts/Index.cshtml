@@ -122,6 +122,8 @@
                 success: function(results){
                     if(results.status == "success"){
                         window.location.href = results.redirectUrl;
+                        //$("#records_table").html("");
+                        //$("#records_table").html(results);
                     }
                 },
                 error: function(xhr){
