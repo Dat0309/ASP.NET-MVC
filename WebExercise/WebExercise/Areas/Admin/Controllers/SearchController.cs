@@ -22,13 +22,22 @@ namespace WebExercise.Areas.Admin.Controllers
         {
             List<Product> list = new List<Product>();
             if (string.IsNullOrEmpty(keyword) || keyword.Length < 1)
-                return PartialView("ListProductsSearchPartial", null);
-            list = _context.Products.AsNoTracking()
-                .Include(a=>a.Cat)
-                .Where(x=>x.ProductName.Contains(keyword))
-                .OrderByDescending(x=>x.ProductName)
+            {
+                list = _context.Products.AsNoTracking()
+                .Include(x => x.Cat)
+                .OrderByDescending(x => x.ProductName)
                 .Take(10)
                 .ToList();
+            }
+            else
+            {
+                list = _context.Products.AsNoTracking()
+                .Where(x => x.ProductName.Contains(keyword))
+                .Include(x => x.Cat)
+                .OrderByDescending(x => x.ProductName)
+                .Take(10)
+                .ToList();
+            }
             if (list == null)
             {
                 return PartialView("ListProductsSearchPartial", null);

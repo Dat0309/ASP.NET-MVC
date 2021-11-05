@@ -28,7 +28,7 @@
                     <div class="col-md-6">
                         <div class="input-affix m-v-10">
                             <select class="custom-select" id="txtCatID" name="txtCatID" style="min-width: 200px;" asp-items="ViewBag.DanhMuc">
-                                <option value="all" selected>Chọn tất cả</option>
+                                <option value="0" selected>Chọn tất cả</option>
                             </select>
                         </div>
                     </div>
@@ -109,13 +109,10 @@
 @section Scripts{
 <script>
     $(document).ready(function(){
-        JQuery("#txtCatID").change(function (){
-            var catID = JQuery(this).children(":selected").attr("value");
-            catID = parseFloat(catID);
-            $('#txtCatID option').removeAttr('selected');
-            $("#txtCatID > [value=" + catID + "]").attr("selected", "true");
+        $("#txtCatID").change(function (){
+            var catID = $('#txtCatID').val();
             $.ajax({
-                url: '/Admin/AdminProducts/Filtter',
+                url: window.location.origin + `/api/Filter?CatID=${catID}`,
                 datatype: "json",
                 type: "GET",
                 data:{
@@ -124,7 +121,6 @@
                 async: true,
                 success: function(results){
                     if(results.status == "success"){
-                        console.log(results);
                         window.location.href = results.redirectUrl;
                     }
                 },
@@ -137,7 +133,7 @@
         $('#keyword').keyup(function (){
             var strkeyword = $('#keyword').val();
             $.ajax({
-                url:'/Admin/Search/SearchProduct/',
+                url: '/Admin/Search/SearchProduct/',
                 datatype: "json",
                 type: "POST",
                 data:{
@@ -145,7 +141,6 @@
                 },
                 async: true,
                 success: function (results){
-                    console.log(results);
                     $("#records_table").html("");
                     $("#records_table").html(results);
                 },

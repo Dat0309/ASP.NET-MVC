@@ -59,7 +59,8 @@ namespace WebExercise.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminProducts/Filtter
-        public IActionResult Filtter(int CatID = 0)
+        [HttpGet("api/Filter")]
+        public IActionResult Filter(int CatID = 0)
         {
             var url = $"/Admin/AdminProducts?CatID={CatID}";
             if (CatID == 0)
