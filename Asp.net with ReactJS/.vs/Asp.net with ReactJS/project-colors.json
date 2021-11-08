@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "523602b8-b04c-45c9-aa53-3cf6501c3a02": {
+      "ProjectGuid": "523602b8-b04c-45c9-aa53-3cf6501c3a02",
+      "DisplayName": "Asp.net with ReactJS",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
